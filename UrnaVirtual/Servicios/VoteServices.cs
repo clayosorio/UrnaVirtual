@@ -7,6 +7,7 @@ namespace UrnaVirtual.Servicios
     public class VoteServices : IVoteServices
     {
         UVContext _urnaVirtual;
+        public List<Vote> votes = new List<Vote>(); 
 
         public VoteServices(UVContext urnaVirtual)   
         {
@@ -22,6 +23,12 @@ namespace UrnaVirtual.Servicios
         {
             _urnaVirtual.Add(vote);
             await _urnaVirtual.SaveChangesAsync();
+        }
+
+        public dynamic GetVotesByAspirant(Guid id) 
+        {
+            votes = _urnaVirtual.Votes.ToList();
+            return votes.Where(p => p.AspirantId == id);
         }
     }
 }

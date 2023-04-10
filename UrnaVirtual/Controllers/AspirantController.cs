@@ -32,5 +32,16 @@ namespace UrnaVirtual.Controllers
             _aspirantServices.DeleteAspirant(id);
             return Ok();    
         }
+
+        [HttpGet("{ID}")]
+        public IActionResult GetAspirantByID(Guid id) 
+        {
+            return Ok(_aspirantServices.GetAspirantByID(id));
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateAspirantById([FromBody] Aspirant aspirant, Guid id) 
+        {
+            return Ok(_aspirantServices.UpdateAspirantById(aspirant, id));
+        }
     }
 }
