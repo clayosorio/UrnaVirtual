@@ -27,5 +27,11 @@ namespace UrnaVirtual.Controllers
             _voteServices.SaveVote(vote);
             return Ok();
         }
-    }
+		[HttpGet("{id}")]
+		public IActionResult GetVotesByAspirant(Guid id)
+        {
+            return Ok(_voteServices.GetVotesByAspirant(id));
+        }
+
+	}
 }
