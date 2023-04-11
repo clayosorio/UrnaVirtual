@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UrnaVirtual.Modelos;
-using UrnaVirtual.Servicios;
 using UrnaVirtual.Servicios.IServicios;
 
 namespace UrnaVirtual.Controllers
@@ -22,26 +21,26 @@ namespace UrnaVirtual.Controllers
         }
         [HttpPost]
         public IActionResult SaveAspirant([FromBody] Aspirant aspirant)
-        { 
-            _aspirantServices.SaveAspirant(aspirant);
-            return Ok();
+        {
+            return Ok(_aspirantServices.SaveAspirant(aspirant));
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteAspirant(Guid id)
         {
             _aspirantServices.DeleteAspirant(id);
-            return Ok();    
+            return Ok();
         }
 
-        [HttpGet("{ID}")]
-        public IActionResult GetAspirantByID(Guid id) 
+        [HttpGet("{id}")]
+        public IActionResult GetAspirantByID(string id)
         {
             return Ok(_aspirantServices.GetAspirantByID(id));
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateAspirantById([FromBody] Aspirant aspirant, Guid id) 
+        public IActionResult UpdateAspirantById([FromBody] Aspirant aspirant, string id, [FromQuery] bool updateId = false)
         {
-            return Ok(_aspirantServices.UpdateAspirantById(aspirant, id));
+            _aspirantServices.UpdateAspirantById(aspirant, id, updateId);
+            return Ok();
         }
     }
 }

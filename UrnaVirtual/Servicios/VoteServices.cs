@@ -26,10 +26,17 @@ namespace UrnaVirtual.Servicios
             await _urnaVirtual.SaveChangesAsync();
         }
 
-        public dynamic GetVotesByAspirant(Guid id) 
+        public dynamic GetVotesByAspirant(string id) 
         {
-            votes = _urnaVirtual.Votes.ToList();
-            return votes.Where(p => p.AspirantId == id);
-        }
+			var resultado = from votes in _urnaVirtual.Votes
+							join aspirtants in _urnaVirtual.Aspirants on votes.AspirantId equals aspirtants.AspirantId
+							where aspirtants.ID == id
+                            select votes;
+
+            return resultado;
+
+			//votes = _urnaVirtual.Votes.ToList();
+			//return votes.Where(p => p.AspirantId == id);
+		}
     }
 }

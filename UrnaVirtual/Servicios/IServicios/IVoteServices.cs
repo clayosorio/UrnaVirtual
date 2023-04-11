@@ -6,7 +6,7 @@ namespace UrnaVirtual.Servicios.IServicios
     {
         IEnumerable<Vote> GetAllVotes();
         Task SaveVote(Vote vote);
-        dynamic GetVotesByAspirant(Guid id);
+        dynamic GetVotesByAspirant(string id);
 	}
 }
 

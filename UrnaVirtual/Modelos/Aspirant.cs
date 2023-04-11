@@ -23,10 +23,6 @@ namespace UrnaVirtual.Modelos
         public Cities City { get; set; }
         [Required]
         public Departments Departments { get; set; }
-
-        [JsonIgnore]
-        public virtual ICollection<Vote>? Votes { get; set; }
-
     }
 }
 
