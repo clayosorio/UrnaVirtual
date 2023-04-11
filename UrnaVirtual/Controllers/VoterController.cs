@@ -28,10 +28,18 @@ namespace UrnaVirtual.Controllers
             return Ok();
         }
 
-        [HttpGet("{ID}")]
-        public IActionResult ValidateVoter(Guid ID)
+        [HttpGet("{id}")]
+        public IActionResult ValidateVoter(string id)
         {
-            return Ok(_voterServices.ValidateVoter(ID));
+            return Ok(_voterServices.ValidateVoter(id));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteVoterByID(string id)
+        {
+            _voterServices.DeleteVoterByID(id);
+            return Ok();
+        }
+
     }
 }

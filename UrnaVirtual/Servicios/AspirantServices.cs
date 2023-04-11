@@ -22,9 +22,15 @@ namespace UrnaVirtual.Servicios
         }
 
         public async Task SaveAspirant(Aspirant aspirant)
-        { 
-            _uvContext.Add(aspirant);
-            await _uvContext.SaveChangesAsync();
+        {
+            var targetAspirant = _uvContext.Aspirants.Where(p => p.ID == aspirant.ID);
+            if (targetAspirant != null) { 
+                throw new InvalidOperationException("Ya existe un aspirante con esta identificación"); 
+            }
+			aspirant.AspirantId = Guid.NewGuid();
+			_uvContext.Add(aspirant);
+			await _uvContext.SaveChangesAsync();
+
         }
 
         public async Task DeleteAspirant(Guid ID) 
@@ -36,26 +42,32 @@ namespace UrnaVirtual.Servicios
                 await _uvContext.SaveChangesAsync();
         }
 
-        public dynamic GetAspirantByID(Guid id)
+        public dynamic GetAspirantByID(string id)
         {
-            var aspirant = _uvContext.Aspirants.Find(id);
+            var aspirant = _uvContext.Aspirants.Where(p => p.ID == id);
             return aspirant;
 		}
 
-        public async Task UpdateAspirantById(Aspirant aspirant, Guid id)
+        public async Task UpdateAspirantById(Aspirant aspirant, string id , bool updateId)
         {
-            var targetAspirant = _uvContext.Aspirants.Find(id);
-
-
-			if (targetAspirant != null)
+            var targetAspirant = _uvContext.Aspirants.Where(p => p.ID == id).FirstOrDefault();
+            var targetAspitantExist = _uvContext.Aspirants.Where(p => p.ID == aspirant.ID).FirstOrDefault();
+			if (targetAspirant == null)
             {
-                targetAspirant.FullNameAspirant = aspirant.FullNameAspirant;
-                targetAspirant.ID = aspirant.ID;
-                targetAspirant.ExpeditionDateID = aspirant.ExpeditionDateID;
-                targetAspirant.City = aspirant.City;
-                targetAspirant.Departments = aspirant.Departments;
-				await _uvContext.SaveChangesAsync();
+				throw new InvalidOperationException("No existe un aspirante con esta identificación");
 			}
+
+            if (updateId && targetAspitantExist != null)
+            {
+				throw new InvalidOperationException("Ya existe un usuario con esta identificación nueva");
+
+			}
+			targetAspirant.FullNameAspirant = aspirant.FullNameAspirant;
+			targetAspirant.ExpeditionDateID = aspirant.ExpeditionDateID;
+            targetAspirant.ID = updateId ? aspirant.ID : targetAspirant.ID;
+			targetAspirant.City = aspirant.City;
+			targetAspirant.Departments = aspirant.Departments;
+			await _uvContext.SaveChangesAsync();
 		}
 
 	}

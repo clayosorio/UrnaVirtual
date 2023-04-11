@@ -8,7 +8,8 @@ namespace UrnaVirtual.Modelos
 {
     public class Aspirant
     {
-        [Key]
+		[JsonIgnore]
+		[Key]
         public Guid AspirantId { get; set; }
         [Required]
         public string FullNameAspirant { get; set; }
@@ -22,10 +23,6 @@ namespace UrnaVirtual.Modelos
         public Cities City { get; set; }
         [Required]
         public Departments Departments { get; set; }
-
-        [JsonIgnore]
-        public virtual ICollection<Vote>? Votes { get; set; }
-
     }
 }
 

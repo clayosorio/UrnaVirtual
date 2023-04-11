@@ -28,7 +28,7 @@ namespace UrnaVirtual.Controllers
             return Ok();
         }
 		[HttpGet("{id}")]
-		public IActionResult GetVotesByAspirant(Guid id)
+		public IActionResult GetVotesByAspirant(string id)
         {
             return Ok(_voteServices.GetVotesByAspirant(id));
         }

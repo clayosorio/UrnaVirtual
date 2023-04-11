@@ -6,6 +6,9 @@ namespace UrnaVirtual.Servicios.IServicios
     {
         IEnumerable<Voter> GetVoters();
         Task SaveVoter(Voter voter);
-        dynamic ValidateVoter(Guid ID);
-    }
+        dynamic ValidateVoter(string ID);
+
+        Task DeleteVoterByID(string id);
+
+	}
 }
