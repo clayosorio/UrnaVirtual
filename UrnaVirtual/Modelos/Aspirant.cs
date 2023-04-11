@@ -8,7 +8,8 @@ namespace UrnaVirtual.Modelos
 {
     public class Aspirant
     {
-        [Key]
+		[JsonIgnore]
+		[Key]
         public Guid AspirantId { get; set; }
         [Required]
         public string FullNameAspirant { get; set; }

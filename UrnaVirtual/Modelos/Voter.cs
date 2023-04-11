@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using UrnaVirtual.Constantes;
 
 namespace UrnaVirtual.Modelos
 {
     public class Voter
     {
-        [Key]
+
+		[JsonIgnore]
+		[Key]
         public Guid VoterId { get; set; }
         [Required]
         public string FullNameVoter { get; set; }

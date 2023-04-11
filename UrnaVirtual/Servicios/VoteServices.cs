@@ -21,6 +21,7 @@ namespace UrnaVirtual.Servicios
 
         public async Task SaveVote(Vote vote) 
         {
+            vote.VoteId = Guid.NewGuid();
             _urnaVirtual.Add(vote);
             await _urnaVirtual.SaveChangesAsync();
         }

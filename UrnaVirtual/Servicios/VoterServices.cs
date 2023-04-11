@@ -20,6 +20,7 @@ namespace UrnaVirtual.Servicios
 
         public async Task SaveVoter(Voter voter) 
         {
+            voter.VoterId = Guid.NewGuid();
             _uvContext.Add(voter);
             await _uvContext.SaveChangesAsync();    
         }

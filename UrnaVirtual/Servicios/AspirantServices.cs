@@ -22,7 +22,8 @@ namespace UrnaVirtual.Servicios
         }
 
         public async Task SaveAspirant(Aspirant aspirant)
-        { 
+        {   
+            aspirant.AspirantId = Guid.NewGuid();
             _uvContext.Add(aspirant);
             await _uvContext.SaveChangesAsync();
         }

@@ -6,7 +6,8 @@ namespace UrnaVirtual.Modelos
 {
     public class Vote
     {
-        [Key]
+		[JsonIgnore]
+		[Key]
         public Guid VoteId { get; set; }
         [ForeignKey("VoterId")]
         public Guid VoterId { get; set; }
