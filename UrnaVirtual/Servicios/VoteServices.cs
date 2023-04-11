@@ -21,6 +21,11 @@ namespace UrnaVirtual.Servicios
 
         public async Task SaveVote(Vote vote) 
         {
+            var voto = _urnaVirtual.Votes.Where(x => x.VoterId == vote.VoterId).FirstOrDefault();
+            if (voto != null)
+            {
+				throw new InvalidOperationException("Ya existe un voto realizado con este votante.");
+			}
             vote.VoteId = Guid.NewGuid();
             _urnaVirtual.Add(vote);
             await _urnaVirtual.SaveChangesAsync();

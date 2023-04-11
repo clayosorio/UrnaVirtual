@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UrnaVirtual.Modelos;
 using UrnaVirtual.Servicios;
 using UrnaVirtual.Servicios.IServicios;
@@ -7,6 +8,7 @@ namespace UrnaVirtual.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class VoteController : ControllerBase
     {
         IVoteServices _voteServices;
@@ -24,8 +26,7 @@ namespace UrnaVirtual.Controllers
         [HttpPost]
         public IActionResult SaveVote([FromBody] Vote vote)
         {
-            _voteServices.SaveVote(vote);
-            return Ok();
+            return Ok(_voteServices.SaveVote(vote));
         }
 		[HttpGet("{id}")]
 		public IActionResult GetVotesByAspirant(string id)
