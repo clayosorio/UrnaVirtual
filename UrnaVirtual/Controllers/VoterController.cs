@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UrnaVirtual.Modelos;
 using UrnaVirtual.Servicios;
 using UrnaVirtual.Servicios.IServicios;
@@ -24,8 +25,7 @@ namespace UrnaVirtual.Controllers
         [HttpPost]
         public IActionResult SaveVoter(Voter voter)
         {
-            _voterServices.SaveVoter(voter);
-            return Ok();
+            return Ok(_voterServices.SaveVoter(voter));
         }
 
         [HttpGet("{id}")]
